@@ -10,51 +10,77 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #loading {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
-        .loading {
             text-align: center;
         }
+        #flutter-app {
+            display: none;
+        }
     </style>
-    <!-- Remove defer attribute from flutter.js -->
-    <script src="flutter.js"></script>
 </head>
 <body>
-    <div class="loading">
-        <h2>Loading Digaxion...</h2>
-        <p>Please wait</p>
+    <div id="loading">
+        <div>
+            <h2>Loading Digaxion...</h2>
+            <p>Digital Marketing Excellence</p>
+        </div>
     </div>
 
+    <div id="flutter-app"></div>
+
     <script>
-        console.log('Starting Flutter application...');
-        
-        window.addEventListener('load', function(ev) {
-            console.log('Window loaded, initializing Flutter...');
+        // Load Flutter script
+        var script = document.createElement('script');
+        script.src = 'flutter.js';
+        script.defer = true;
+        document.head.appendChild(script);
+
+        script.onload = function() {
+            console.log('Flutter.js loaded');
             
-            // Simple Flutter loading
-            _flutter.loader.load({
-                onEntrypointLoaded: function(engineInitializer) {
-                    console.log('Flutter entrypoint loaded');
-                    engineInitializer.initializeEngine().then(function(appRunner) {
-                        console.log('Flutter engine initialized');
-                        return appRunner.runApp();
-                    }).then(function() {
-                        console.log('Flutter app running successfully');
-                        // Hide loading screen
-                        document.querySelector('.loading').style.display = 'none';
-                    }).catch(function(error) {
-                        console.error('Error running app:', error);
-                        document.querySelector('.loading').innerHTML = 
-                            '<h2>Error Loading App</h2><p>Please refresh the page</p>';
-                    });
-                }
+            window.addEventListener('load', function(ev) {
+                console.log('Window loaded, starting Flutter...');
+                
+                _flutter.loader.loadEntrypoint({
+                    serviceWorker: {
+                        serviceWorkerVersion: serviceWorkerVersion,
+                    },
+                    onEntrypointLoaded: async function(engineInitializer) {
+                        try {
+                            console.log('Flutter entrypoint loaded');
+                            const appRunner = await engineInitializer.initializeEngine();
+                            console.log('Engine initialized');
+                            await appRunner.runApp();
+                            console.log('App running');
+                            
+                            // Hide loading, show app
+                            document.getElementById('loading').style.display = 'none';
+                            document.getElementById('flutter-app').style.display = 'block';
+                            
+                        } catch (error) {
+                            console.error('Flutter error:', error);
+                            document.getElementById('loading').innerHTML = 
+                                '<h2>Error Loading Application</h2><p>Please refresh the page</p>';
+                        }
+                    }
+                });
             });
-        });
+        };
+
+        // Fallback timeout
+        setTimeout(function() {
+            if (document.getElementById('loading').style.display !== 'none') {
+                document.getElementById('loading').innerHTML = 
+                    '<h2>Loading Timeout</h2><p>Please check your browser console</p>';
+            }
+        }, 10000);
     </script>
 </body>
 </html>
