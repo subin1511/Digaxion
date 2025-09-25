@@ -4,7 +4,7 @@
     <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digaxion</title>
+    <title>Digaxion - Digital Marketing Excellence</title>
     <style>
         body {
             margin: 0;
@@ -21,6 +21,7 @@
             text-align: center;
         }
     </style>
+    <!-- Remove defer attribute from flutter.js -->
     <script src="flutter.js"></script>
 </head>
 <body>
@@ -28,31 +29,30 @@
         <h2>Loading Digaxion...</h2>
         <p>Please wait</p>
     </div>
-    
+
     <script>
-        console.log('Initializing Flutter app...');
+        console.log('Starting Flutter application...');
         
         window.addEventListener('load', function(ev) {
-            console.log('Window loaded, starting Flutter...');
+            console.log('Window loaded, initializing Flutter...');
             
+            // Simple Flutter loading
             _flutter.loader.load({
-                onEntrypointLoaded: async function(engineInitializer) {
+                onEntrypointLoaded: function(engineInitializer) {
                     console.log('Flutter entrypoint loaded');
-                    try {
-                        const appRunner = await engineInitializer.initializeEngine();
-                        console.log('Engine initialized');
-                        await appRunner.runApp();
-                        console.log('App running successfully');
+                    engineInitializer.initializeEngine().then(function(appRunner) {
+                        console.log('Flutter engine initialized');
+                        return appRunner.runApp();
+                    }).then(function() {
+                        console.log('Flutter app running successfully');
                         // Hide loading screen
                         document.querySelector('.loading').style.display = 'none';
-                    } catch (error) {
-                        console.error('Error:', error);
+                    }).catch(function(error) {
+                        console.error('Error running app:', error);
                         document.querySelector('.loading').innerHTML = 
-                            '<h2>Error Loading App</h2><p>Check console for details</p>';
-                    }
+                            '<h2>Error Loading App</h2><p>Please refresh the page</p>';
+                    });
                 }
-            }).catch(function(error) {
-                console.error('Load error:', error);
             });
         });
     </script>
