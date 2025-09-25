@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digaxion - Digital Marketing Excellence</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        #loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        #flutter-app {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <div>
+            <h2>Loading Digaxion...</h2>
+            <p>Digital Marketing Excellence</p>
+        </div>
+    </div>
+
+    <div id="flutter-app"></div>
+
+    <script>
+        // Define serviceWorkerVersion (can be null if no service worker)
+        const serviceWorkerVersion = "1584050382";
+
+        window.addEventListener('load', function(ev) {
+            console.log('Window loaded, loading Flutter...');
+            
+            // Load Flutter script dynamically
+            var script = document.createElement('script');
+            script.src = 'flutter.js';
+            script.defer = true;
+            
+            script.onload = function() {
+                console.log('Flutter.js loaded, starting Flutter...');
+                
+                _flutter.loader.loadEntrypoint({
+                    serviceWorker: {
+                        serviceWorkerVersion: serviceWorkerVersion,
+                    },
+                    onEntrypointLoaded: async function(engineInitializer) {
+                        try {
+                            console.log('Flutter entrypoint loaded');
+                            const appRunner = await engineInitializer.initializeEngine({
+                                hostElement: document.getElementById('flutter-app')
+                            });
+                            console.log('Engine initialized');
+                            await appRunner.runApp();
+                            console.log('App running');
+                            
+                            // Hide loading, show app
+                            document.getElementById('loading').style.display = 'none';
+                            document.getElementById('flutter-app').style.display = 'block';
+                            
+                        } catch (error) {
+                            console.error('Flutter error:', error);
+                            document.getElementById('loading').innerHTML = 
+                                '<h2>Error Loading Application</h2><p>' + error.message + '</p>';
+                        }
+                    }
+                });
+            };
+
+            script.onerror = function() {
+                console.error('Failed to load flutter.js');
+                document.getElementById('loading').innerHTML = 
+                    '<h2>Error Loading Flutter</h2><p>Failed to load required files</p>';
+            };
+
+            document.head.appendChild(script);
+        });
+
+        // Fallback timeout
+        setTimeout(function() {
+            if (document.getElementById('loading').style.display !== 'none') {
+                console.log('Loading timeout reached');
+                document.getElementById('loading').innerHTML = 
+                    '<h2>Loading Timeout</h2><p>Please check your browser console</p>';
+            }
+        }, 15000); // Increased to 15 seconds
+    </script>
+</body>
+</html>
