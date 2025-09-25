@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digaxion</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .loading {
+            text-align: center;
+        }
+    </style>
+    <script src="flutter.js"></script>
+</head>
+<body>
+    <div class="loading">
+        <h2>Loading Digaxion...</h2>
+        <p>Please wait</p>
+    </div>
+    
+    <script>
+        console.log('Initializing Flutter app...');
+        
+        window.addEventListener('load', function(ev) {
+            console.log('Window loaded, starting Flutter...');
+            
+            _flutter.loader.load({
+                onEntrypointLoaded: async function(engineInitializer) {
+                    console.log('Flutter entrypoint loaded');
+                    try {
+                        const appRunner = await engineInitializer.initializeEngine();
+                        console.log('Engine initialized');
+                        await appRunner.runApp();
+                        console.log('App running successfully');
+                        // Hide loading screen
+                        document.querySelector('.loading').style.display = 'none';
+                    } catch (error) {
+                        console.error('Error:', error);
+                        document.querySelector('.loading').innerHTML = 
+                            '<h2>Error Loading App</h2><p>Check console for details</p>';
+                    }
+                }
+            }).catch(function(error) {
+                console.error('Load error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
