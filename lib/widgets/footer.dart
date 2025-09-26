@@ -76,26 +76,29 @@ class _FooterState extends State<Footer> {
               //       Row(
               //         children: [
               //           _SocialImage(
-              //             imagePath: 'assets/icons/facebook.png',
+              //             imageUrl:
+              //                 'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/facebook.png',
               //             onTap: () => _launchURL(
               //               'https://www.facebook.com/share/1FiZreC9Nb/',
               //             ),
               //           ),
               //           _SocialImage(
-              //             imagePath: 'assets/icons/linkedin.png',
+              //             imageUrl:
+              //                 'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/linkedin.png',
               //             onTap: () => _launchURL(
               //               'https://www.linkedin.com/in/digaxion-offl-642b31386',
               //             ),
               //           ),
               //           _SocialImage(
-              //             imagePath: 'assets/icons/instagram.png',
+              //             imageUrl:
+              //                 'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/instagram.png',
               //             onTap: () => _launchURL(
               //               'https://www.instagram.com/_digaxion_',
               //             ),
               //           ),
               //           _SocialImage(
-              //             imagePath:
-              //                 'assets/icons/twitter.png', // or x.png depending on your file
+              //             imageUrl:
+              //                 'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/twitter.png',
               //             onTap: () =>
               //                 _launchURL('https://x.com/digaxion51914'),
               //           ),
@@ -126,28 +129,28 @@ class _FooterState extends State<Footer> {
                       children: [
                         _SocialImage(
                           imageUrl:
-                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/facebook.png',
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/facebook.png',
                           onTap: () => _launchURL(
                             'https://www.facebook.com/share/1FiZreC9Nb/',
                           ),
                         ),
                         _SocialImage(
                           imageUrl:
-                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/linkedin.png',
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/linkedin.png',
                           onTap: () => _launchURL(
                             'https://www.linkedin.com/in/digaxion-offl-642b31386',
                           ),
                         ),
                         _SocialImage(
                           imageUrl:
-                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/instagram.png',
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/instagram.png',
                           onTap: () => _launchURL(
                             'https://www.instagram.com/_digaxion_',
                           ),
                         ),
                         _SocialImage(
                           imageUrl:
-                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/twitter.png',
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/twitter.png',
                           onTap: () =>
                               _launchURL('https://x.com/digaxion51914'),
                         ),

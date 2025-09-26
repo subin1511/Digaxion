@@ -87,7 +87,7 @@ class _TestimonialCard extends StatelessWidget {
               width: 40,
               height: 40,
               child: Image.network(
-                'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/quote.png',
+                'https://raw.githubusercontent.com/subin1511/Digaxion/main/quote.png',
                 color: Color(0xFF2563EB),
                 errorBuilder: (context, error, stackTrace) {
                   return Icon(
