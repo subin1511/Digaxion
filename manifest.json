@@ -1,6 +1,6 @@
 {
-    "name": "digaxion_fixed",
-    "short_name": "digaxion_fixed",
+    "name": "digaxion_app",
+    "short_name": "digaxion_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
