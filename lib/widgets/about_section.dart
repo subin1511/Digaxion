@@ -32,9 +32,45 @@ class _AboutSectionState extends State<AboutSection> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.grey[200],
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/company.jpeg'),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  'https://subin1511.github.io/Digaxion/assets/images/company.jpeg',
                   fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 400,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.business, size: 80, color: Colors.grey),
+                          SizedBox(height: 10),
+                          Text(
+                            'Our Company',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

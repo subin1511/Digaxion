@@ -120,17 +120,22 @@
 //       ),
 //       child: Column(
 //         children: [
-//           // Profile Image
+//           // Profile Image with proper fit
 //           Container(
 //             width: 120,
 //             height: 120,
 //             decoration: BoxDecoration(
 //               shape: BoxShape.circle,
-//               image: DecorationImage(
-//                 image: AssetImage(imagePath),
-//                 fit: BoxFit.cover,
-//               ),
+//               color: Colors.grey[200],
 //               border: Border.all(color: const Color(0xFF2563EB), width: 3),
+//             ),
+//             child: ClipOval(
+//               child: Image.asset(
+//                 imagePath,
+//                 fit: BoxFit.contain, // Changed to contain to show full face
+//                 width: 120,
+//                 height: 120,
+//               ),
 //             ),
 //           ),
 //           const SizedBox(height: 20),
@@ -206,7 +211,8 @@ class TeamSection extends StatelessWidget {
             children: [
               Expanded(
                 child: _TeamMember(
-                  imagePath: 'assets/images/ceo.jpeg',
+                  imageUrl:
+                      'https://subin1511.github.io/Digaxion/assets/images/ceo.jpeg',
                   name: 'Anatha Krishnan KS',
                   position: 'Chief Executive Officer',
                   description:
@@ -215,7 +221,8 @@ class TeamSection extends StatelessWidget {
               ),
               Expanded(
                 child: _TeamMember(
-                  imagePath: 'assets/images/marketing.jpeg',
+                  imageUrl:
+                      'https://subin1511.github.io/Digaxion/assets/images/marketing.jpeg',
                   name: 'Niya raj CK',
                   position: 'Chief Marketing Officer',
                   description:
@@ -224,7 +231,8 @@ class TeamSection extends StatelessWidget {
               ),
               Expanded(
                 child: _TeamMember(
-                  imagePath: 'assets/images/tech.jpeg',
+                  imageUrl:
+                      'https://subin1511.github.io/Digaxion/assets/images/tech.jpeg',
                   name: 'Abdul Nafih TK',
                   position: 'Chief Technology Officer',
                   description:
@@ -240,7 +248,8 @@ class TeamSection extends StatelessWidget {
             children: [
               Expanded(
                 child: _TeamMember(
-                  imagePath: 'assets/images/social.jpeg',
+                  imageUrl:
+                      'https://subin1511.github.io/Digaxion/assets/images/social.jpeg',
                   name: 'Suhailathulaflahiyya KK',
                   position: 'Social Media Manager',
                   description:
@@ -249,7 +258,8 @@ class TeamSection extends StatelessWidget {
               ),
               Expanded(
                 child: _TeamMember(
-                  imagePath: 'assets/images/innovation.jpeg',
+                  imageUrl:
+                      'https://subin1511.github.io/Digaxion/assets/images/innovation.jpeg',
                   name: 'Mohammed Nabeesh KV',
                   position: 'Head of Innovation',
                   description:
@@ -266,13 +276,13 @@ class TeamSection extends StatelessWidget {
 }
 
 class _TeamMember extends StatelessWidget {
-  final String imagePath;
+  final String imageUrl;
   final String name;
   final String position;
   final String description;
 
   const _TeamMember({
-    required this.imagePath,
+    required this.imageUrl,
     required this.name,
     required this.position,
     required this.description,
@@ -306,11 +316,32 @@ class _TeamMember extends StatelessWidget {
               border: Border.all(color: const Color(0xFF2563EB), width: 3),
             ),
             child: ClipOval(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.contain, // Changed to contain to show full face
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
                 width: 120,
                 height: 120,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: 50,
+                    ),
+                  );
+                },
               ),
             ),
           ),

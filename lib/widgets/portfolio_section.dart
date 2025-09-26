@@ -10,7 +10,7 @@
 //       color: Colors.grey[50],
 //       child: Column(
 //         children: [
-//           Text(
+//           const Text(
 //             'Our Portfolio',
 //             style: TextStyle(
 //               fontSize: 36,
@@ -25,13 +25,13 @@
 //           ),
 //           const SizedBox(height: 50),
 
-//           // Portfolio Grid - Replace with your images
+//           // Portfolio Grid - Using properly sized landscape images
 //           Row(
 //             children: [
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/2563EB/FFFFFF?text=Project+1',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image1.jpeg', // Business meeting
 //                   title: 'E-commerce Success',
 //                   category: 'SEO & Social Media',
 //                 ),
@@ -39,7 +39,7 @@
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/1D4ED8/FFFFFF?text=Project+2',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image2.jpeg', // Team collaboration
 //                   title: 'Brand Launch',
 //                   category: 'Full Digital Strategy',
 //                 ),
@@ -47,7 +47,7 @@
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Project+3',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image3.jpeg', // Analytics dashboard
 //                   title: 'Lead Generation',
 //                   category: 'PPC Campaign',
 //                 ),
@@ -62,7 +62,7 @@
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/60A5FA/FFFFFF?text=Project+4',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image1.jpeg', // Office workspace
 //                   title: 'Content Strategy',
 //                   category: 'Content Marketing',
 //                 ),
@@ -70,7 +70,7 @@
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/93C5FD/FFFFFF?text=Project+5',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image2.jpeg', // Social media marketing
 //                   title: 'Social Media Growth',
 //                   category: 'Social Media Management',
 //                 ),
@@ -78,7 +78,7 @@
 //               Expanded(
 //                 child: _PortfolioItem(
 //                   imageUrl:
-//                       'https://via.placeholder.com/400x300/DBEAFE/FFFFFF?text=Project+6',
+//                       'https://github.com/subin1511/Digaxion/blob/main/assets/images/image3.jpeg', // Email marketing
 //                   title: 'Email Campaign',
 //                   category: 'Email Marketing',
 //                 ),
@@ -110,29 +110,76 @@
 //         borderRadius: BorderRadius.circular(15),
 //         color: Colors.white,
 //         boxShadow: [
-//           BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+//           BoxShadow(
+//             color: Colors.black12,
+//             blurRadius: 8,
+//             offset: const Offset(0, 4),
+//           ),
 //         ],
 //       ),
 //       child: Column(
 //         crossAxisAlignment: CrossAxisAlignment.start,
 //         children: [
+//           // Image Container with proper sizing
 //           Container(
 //             height: 200,
+//             width: double.infinity,
 //             decoration: BoxDecoration(
-//               borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-//               color: Colors.grey[200],
-//               image: DecorationImage(
-//                 image: NetworkImage(imageUrl),
-//                 fit: BoxFit.cover,
+//               borderRadius: const BorderRadius.vertical(
+//                 top: Radius.circular(15),
 //               ),
+//               color: Colors.grey[200],
 //             ),
-//             child: const Center(
-//               child: Text(
-//                 'Your Project Image',
-//                 style: TextStyle(color: Colors.grey),
+//             child: ClipRRect(
+//               borderRadius: const BorderRadius.vertical(
+//                 top: Radius.circular(15),
+//               ),
+//               child: Image.network(
+//                 imageUrl,
+//                 fit: BoxFit.cover,
+//                 width: double.infinity,
+//                 height: double.infinity, // Use available space
+//                 loadingBuilder: (context, child, loadingProgress) {
+//                   if (loadingProgress == null) return child;
+//                   return Container(
+//                     color: Colors.grey[300],
+//                     child: Center(
+//                       child: CircularProgressIndicator(
+//                         value: loadingProgress.expectedTotalBytes != null
+//                             ? loadingProgress.cumulativeBytesLoaded /
+//                                   loadingProgress.expectedTotalBytes!
+//                             : null,
+//                       ),
+//                     ),
+//                   );
+//                 },
+//                 errorBuilder: (context, error, stackTrace) {
+//                   return Container(
+//                     color: Colors.grey[300],
+//                     child: const Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Icon(
+//                           Icons.business_center,
+//                           color: Colors.grey,
+//                           size: 50,
+//                         ),
+//                         SizedBox(height: 10),
+//                         Text(
+//                           'Portfolio Project',
+//                           style: TextStyle(
+//                             color: Colors.grey,
+//                             fontWeight: FontWeight.w500,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   );
+//                 },
 //               ),
 //             ),
 //           ),
+//           // Content section
 //           Padding(
 //             padding: const EdgeInsets.all(20),
 //             child: Column(
@@ -140,7 +187,7 @@
 //               children: [
 //                 Text(
 //                   title,
-//                   style: TextStyle(
+//                   style: const TextStyle(
 //                     fontSize: 18,
 //                     fontWeight: FontWeight.bold,
 //                     color: Colors.black87,
@@ -149,7 +196,7 @@
 //                 const SizedBox(height: 5),
 //                 Text(
 //                   category,
-//                   style: TextStyle(
+//                   style: const TextStyle(
 //                     color: Color(0xFF2563EB),
 //                     fontWeight: FontWeight.w500,
 //                   ),
@@ -174,7 +221,7 @@ class PortfolioSection extends StatelessWidget {
       color: Colors.grey[50],
       child: Column(
         children: [
-          Text(
+          const Text(
             'Our Portfolio',
             style: TextStyle(
               fontSize: 36,
@@ -189,26 +236,29 @@ class PortfolioSection extends StatelessWidget {
           ),
           const SizedBox(height: 50),
 
-          // Portfolio Grid - Using asset images
+          // Portfolio Grid - Using raw GitHub URLs
           Row(
             children: [
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image1.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image1.jpeg',
                   title: 'E-commerce Success',
                   category: 'SEO & Social Media',
                 ),
               ),
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image2.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image2.jpeg',
                   title: 'Brand Launch',
                   category: 'Full Digital Strategy',
                 ),
               ),
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image3.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image3.jpeg',
                   title: 'Lead Generation',
                   category: 'PPC Campaign',
                 ),
@@ -222,21 +272,24 @@ class PortfolioSection extends StatelessWidget {
             children: [
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image1.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image1.jpeg',
                   title: 'Content Strategy',
                   category: 'Content Marketing',
                 ),
               ),
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image2.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image2.jpeg',
                   title: 'Social Media Growth',
                   category: 'Social Media Management',
                 ),
               ),
               Expanded(
                 child: _PortfolioItem(
-                  imagePath: 'assets/images/image3.jpeg',
+                  imageUrl:
+                      'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/images/image3.jpeg',
                   title: 'Email Campaign',
                   category: 'Email Marketing',
                 ),
@@ -250,12 +303,12 @@ class PortfolioSection extends StatelessWidget {
 }
 
 class _PortfolioItem extends StatelessWidget {
-  final String imagePath;
+  final String imageUrl;
   final String title;
   final String category;
 
   const _PortfolioItem({
-    required this.imagePath,
+    required this.imageUrl,
     required this.title,
     required this.category,
   });
@@ -268,23 +321,82 @@ class _PortfolioItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: Colors.white,
         boxShadow: [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Image Container with proper sizing
           Container(
             height: 200,
+            width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
               color: Colors.grey[200],
-              image: DecorationImage(
-                image: AssetImage(imagePath),
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(15),
+              ),
+              child: Image.network(
+                imageUrl,
                 fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    color: Colors.grey[300],
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  print('Image loading error: $error');
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.business_center,
+                          color: Colors.grey,
+                          size: 50,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Portfolio Project',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Text(
+                          'Image not available',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),
+          // Content section
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -292,7 +404,7 @@ class _PortfolioItem extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
@@ -301,7 +413,7 @@ class _PortfolioItem extends StatelessWidget {
                 const SizedBox(height: 5),
                 Text(
                   category,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF2563EB),
                     fontWeight: FontWeight.w500,
                   ),

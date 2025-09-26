@@ -82,7 +82,29 @@ class _TestimonialCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Icon(Icons.format_quote, size: 40, color: Color(0xFF2563EB)),
+            // Using PNG image instead of icon
+            Container(
+              width: 40,
+              height: 40,
+              child: Image.network(
+                'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/quote.png',
+                color: Color(0xFF2563EB),
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(
+                    Icons.format_quote,
+                    color: Color(0xFF2563EB),
+                    size: 40,
+                  );
+                },
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return CircularProgressIndicator(
+                    color: Color(0xFF2563EB),
+                    strokeWidth: 2,
+                  );
+                },
+              ),
+            ),
             const SizedBox(height: 20),
             Text(
               text,

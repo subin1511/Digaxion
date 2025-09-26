@@ -1,4 +1,3 @@
-
 name: digaxion_app
 description: "A new Flutter project."
 publish_to: 'none'
@@ -12,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  url_launcher: ^6.1.11
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -20,7 +21,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  
-  # FIXED: Assets section should be indented under flutter:
-  assets:
+  assets:    # ← CORRECT: Properly indented under flutter:
     - assets/images/
+    - assets/icons/
+    - assets/

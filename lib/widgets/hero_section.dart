@@ -1,9 +1,29 @@
 // import 'package:flutter/material.dart';
 
-// class HeroSection extends StatelessWidget {
+// class HeroSection extends StatefulWidget {
 //   final VoidCallback onGetStartedTap;
+//   final GlobalKey servicesKey;
 
-//   const HeroSection({super.key, required this.onGetStartedTap});
+//   const HeroSection({
+//     super.key,
+//     required this.onGetStartedTap,
+//     required this.servicesKey,
+//   });
+
+//   @override
+//   State<HeroSection> createState() => _HeroSectionState();
+// }
+
+// class _HeroSectionState extends State<HeroSection> {
+//   void _scrollToServices() {
+//     if (widget.servicesKey.currentContext != null) {
+//       Scrollable.ensureVisible(
+//         widget.servicesKey.currentContext!,
+//         duration: const Duration(milliseconds: 800),
+//         curve: Curves.easeInOut,
+//       );
+//     }
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -45,7 +65,7 @@
 //                   Row(
 //                     children: [
 //                       ElevatedButton(
-//                         onPressed: onGetStartedTap,
+//                         onPressed: widget.onGetStartedTap,
 //                         style: ElevatedButton.styleFrom(
 //                           backgroundColor: Colors.white,
 //                           foregroundColor: const Color(0xFF2563EB),
@@ -67,17 +87,7 @@
 //                       ),
 //                       const SizedBox(width: 20),
 //                       OutlinedButton(
-//                         onPressed: () {
-//                           // Scroll to services section
-//                           Scrollable.ensureVisible(
-//                             context
-//                                 .findAncestorStateOfType<_HomeScreenState>()!
-//                                 ._servicesKey
-//                                 .currentContext!,
-//                             duration: const Duration(milliseconds: 800),
-//                             curve: Curves.easeInOut,
-//                           );
-//                         },
+//                         onPressed: _scrollToServices,
 //                         style: OutlinedButton.styleFrom(
 //                           foregroundColor: Colors.white,
 //                           side: const BorderSide(color: Colors.white),
@@ -103,17 +113,8 @@
 //                   color: Colors.grey[200],
 //                   borderRadius: BorderRadius.circular(20),
 //                   image: const DecorationImage(
-//                     image: NetworkImage(
-//                       'https://via.placeholder.com/600x400/2563EB/FFFFFF?text=Digaxion+Hero+Image',
-//                     ),
+//                     image: AssetImage('assets/images/logo.jpeg'),
 //                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//                 // Placeholder for your hero image
-//                 child: const Center(
-//                   child: Text(
-//                     'Your Hero Image Here',
-//                     style: TextStyle(color: Colors.grey),
 //                   ),
 //                 ),
 //               ),
@@ -238,9 +239,46 @@ class _HeroSectionState extends State<HeroSection> {
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(20),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/logo.jpeg'),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    'https://subin1511.github.io/Digaxion/assets/images/logo.jpeg',
                     fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 400,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                    loadingProgress.expectedTotalBytes!
+                              : null,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.business, size: 80, color: Colors.grey),
+                            SizedBox(height: 10),
+                            Text(
+                              'Digaxion Logo',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

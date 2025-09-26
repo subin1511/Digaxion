@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Footer extends StatefulWidget {
   final GlobalKey homeKey;
@@ -6,6 +7,7 @@ class Footer extends StatefulWidget {
   final GlobalKey portfolioKey;
   final GlobalKey aboutKey;
   final GlobalKey contactKey;
+  final GlobalKey teamKey;
 
   const Footer({
     super.key,
@@ -14,7 +16,7 @@ class Footer extends StatefulWidget {
     required this.portfolioKey,
     required this.aboutKey,
     required this.contactKey,
-    required GlobalKey<State<StatefulWidget>> teamKey,
+    required this.teamKey,
   });
 
   @override
@@ -32,6 +34,18 @@ class _FooterState extends State<Footer> {
     }
   }
 
+  // Function to launch URLs
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not launch $url')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,6 +55,55 @@ class _FooterState extends State<Footer> {
         children: [
           Row(
             children: [
+              // Expanded(
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: [
+              //       const Text(
+              //         'Digaxion',
+              //         style: TextStyle(
+              //           fontSize: 28,
+              //           fontWeight: FontWeight.bold,
+              //           color: Colors.white,
+              //         ),
+              //       ),
+              //       const SizedBox(height: 20),
+              //       Text(
+              //         'Transforming businesses through innovative digital marketing strategies. We help you reach your goals and maximize your online potential.',
+              //         style: TextStyle(color: Colors.grey[400], height: 1.6),
+              //       ),
+              //       const SizedBox(height: 20),
+              //       Row(
+              //         children: [
+              //           _SocialImage(
+              //             imagePath: 'assets/icons/facebook.png',
+              //             onTap: () => _launchURL(
+              //               'https://www.facebook.com/share/1FiZreC9Nb/',
+              //             ),
+              //           ),
+              //           _SocialImage(
+              //             imagePath: 'assets/icons/linkedin.png',
+              //             onTap: () => _launchURL(
+              //               'https://www.linkedin.com/in/digaxion-offl-642b31386',
+              //             ),
+              //           ),
+              //           _SocialImage(
+              //             imagePath: 'assets/icons/instagram.png',
+              //             onTap: () => _launchURL(
+              //               'https://www.instagram.com/_digaxion_',
+              //             ),
+              //           ),
+              //           _SocialImage(
+              //             imagePath:
+              //                 'assets/icons/twitter.png', // or x.png depending on your file
+              //             onTap: () =>
+              //                 _launchURL('https://x.com/digaxion51914'),
+              //           ),
+              //         ],
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,19 +124,33 @@ class _FooterState extends State<Footer> {
                     const SizedBox(height: 20),
                     Row(
                       children: [
-                        _SocialIcon(icon: Icons.facebook, onTap: () {}),
-                        _SocialIcon(
-                          icon: Icons.camera,
-                          onTap: () {},
-                        ), // Twitter alternative
-                        _SocialIcon(
-                          icon: Icons.link,
-                          onTap: () {},
-                        ), // LinkedIn alternative
-                        _SocialIcon(
-                          icon: Icons.photo_camera,
-                          onTap: () {},
-                        ), // Instagram alternative
+                        _SocialImage(
+                          imageUrl:
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/facebook.png',
+                          onTap: () => _launchURL(
+                            'https://www.facebook.com/share/1FiZreC9Nb/',
+                          ),
+                        ),
+                        _SocialImage(
+                          imageUrl:
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/linkedin.png',
+                          onTap: () => _launchURL(
+                            'https://www.linkedin.com/in/digaxion-offl-642b31386',
+                          ),
+                        ),
+                        _SocialImage(
+                          imageUrl:
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/instagram.png',
+                          onTap: () => _launchURL(
+                            'https://www.instagram.com/_digaxion_',
+                          ),
+                        ),
+                        _SocialImage(
+                          imageUrl:
+                              'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/twitter.png',
+                          onTap: () =>
+                              _launchURL('https://x.com/digaxion51914'),
+                        ),
                       ],
                     ),
                   ],
@@ -107,6 +184,10 @@ class _FooterState extends State<Footer> {
                     _FooterLink(
                       text: 'About Us',
                       onTap: () => _scrollToSection(widget.aboutKey),
+                    ),
+                    _FooterLink(
+                      text: 'Our Team',
+                      onTap: () => _scrollToSection(widget.teamKey),
                     ),
                     _FooterLink(
                       text: 'Contact',
@@ -170,7 +251,6 @@ class _FooterState extends State<Footer> {
                         const SizedBox(width: 10),
                         ElevatedButton(
                           onPressed: () {
-                            // Show subscription success message
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Thank you for subscribing!'),
@@ -199,6 +279,63 @@ class _FooterState extends State<Footer> {
             style: TextStyle(color: Colors.grey[400]),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _SocialImage extends StatelessWidget {
+  final String imageUrl;
+  final VoidCallback onTap;
+
+  const _SocialImage({required this.imageUrl, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.grey[800],
+          shape: BoxShape.circle,
+        ),
+        child: Image.network(
+          imageUrl,
+          width: 20,
+          height: 20,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            // Fallback to icons if images fail to load
+            IconData fallbackIcon;
+            if (imageUrl.contains('facebook')) {
+              fallbackIcon = Icons.facebook;
+            } else if (imageUrl.contains('linkedin')) {
+              fallbackIcon = Icons.link;
+            } else if (imageUrl.contains('instagram')) {
+              fallbackIcon = Icons.photo_camera;
+            } else {
+              fallbackIcon = Icons.trending_up;
+            }
+
+            return Icon(fallbackIcon, color: Colors.white, size: 20);
+          },
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return Container(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                value: loadingProgress.expectedTotalBytes != null
+                    ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes!
+                    : null,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -44,7 +44,7 @@ class ContactSection extends StatelessWidget {
                       _ContactInfo(
                         icon: Icons.email,
                         title: 'Email Us',
-                        subtitle: 'deaxion@gmail.com',
+                        subtitle: 'degaxion@gmail.com',
                       ),
                       _ContactInfo(
                         icon: Icons.phone,
@@ -54,7 +54,8 @@ class ContactSection extends StatelessWidget {
                       _ContactInfo(
                         icon: Icons.location_on,
                         title: 'Visit Us',
-                        subtitle: '123 Business District, City, State 12345',
+                        subtitle:
+                            'SSM Polytechnic college Tirur,Malappuram,Kerala',
                       ),
                       _ContactInfo(
                         icon: Icons.access_time,
