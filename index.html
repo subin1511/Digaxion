@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="/Digaxion/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digaxion</title>
+    <script src="flutter.js"></script>
+</head>
+<body>
+    <script>
+        window.addEventListener('load', function(ev) {
+            _flutter.loader.loadEntrypoint({
+                onEntrypointLoaded: async function(engineInitializer) {
+                    let appRunner = await engineInitializer.initializeEngine();
+                    await appRunner.runApp();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
