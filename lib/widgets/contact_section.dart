@@ -234,20 +234,20 @@ class ContactSection extends StatelessWidget {
                       ),
                       _ContactInfo(
                         imageUrl:
-                            'https://raw.githubusercontent.com/subin1511/Digaxion/main/phone-call.png',
+                            'https://raw.githubusercontent.com/subin1511/Digaxion/main//assets/icons/phone-call.png',
                         title: 'Call Us',
                         subtitle: '7012389550',
                       ),
                       _ContactInfo(
                         imageUrl:
-                            'https://raw.githubusercontent.com/subin1511/Digaxion/main/business-card.png',
+                            'https://raw.githubusercontent.com/subin1511/Digaxion/main/assets/icons/business-card.png',
                         title: 'Visit Us',
                         subtitle:
                             'SSM Polytechnic college Tirur,Malappuram,Kerala',
                       ),
                       _ContactInfo(
                         imageUrl:
-                            'https://raw.githubusercontent.com/subin1511/Digaxion/main/working-time.png',
+                            'https://raw.githubusercontent.com/subin1511/Digaxion/main//assets/icons/working-time.png',
                         title: 'Business Hours',
                         subtitle: 'Mon - Fri: 9:00 AM - 6:00 PM',
                       ),
